@@ -1,0 +1,6 @@
+.stack-work/
+hs-p4p.cabal
+*.hi
+*.o
+error.log
+*~
