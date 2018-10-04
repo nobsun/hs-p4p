@@ -1,5 +1,5 @@
 name:                hs-p4p
-version:             0.1.0.1
+version:             0.1.0.2
 github:              "nobsun/hs-p4p"
 license:             BSD3
 author:              "Nobuo Yamashita"
@@ -39,7 +39,17 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - hs-p4p
-
+    
+  pleaseConform:
+    main:		pleaseConform.hs
+    source-dirs:	app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hs-p4p
+    
 tests:
   hs-p4p-test:
     main:                Spec.hs
