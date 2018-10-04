@@ -4,7 +4,7 @@ type Cap = Char
 type Cmd = String
 
 pleaseConform :: [Cap] -> [Cmd]
-pleaseConform = map mkCmd . gonyogonyo
+pleaseConform = map mkCmd . gonyogonyo . group
 
 type Pos = Int
 type Range = (Pos, Pos)
@@ -17,6 +17,11 @@ mkCmd (i, j)
     showPos pos = show pos ++ "番目"
     change      = "の人は帽子の向きを替えてください"
 
-gonyogonyo :: [Cap] -> [Range]
+group :: [Cap] -> [[Cap]]
+group []     = []
+group (c:cs) = case span (c ==) cs of
+  (xs, ys) -> (c:xs) : group ys
+
+gonyogonyo :: [[Cap]] -> [Range]
 gonyogonyo = undefined
 
