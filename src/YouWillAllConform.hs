@@ -4,7 +4,7 @@ type Cap = Char
 type Cmd = String
 
 pleaseConform :: [Cap] -> [Cmd]
-pleaseConform = map mkCmd . gonyogonyo . group
+pleaseConform = map mkCmd . pickupRanges . makeRanges . group
 
 type Pos = Int
 type Range = (Pos, Pos)
@@ -22,6 +22,13 @@ group []     = []
 group (c:cs) = case span (c ==) cs of
   (xs, ys) -> (c:xs) : group ys
 
-gonyogonyo :: [[Cap]] -> [Range]
-gonyogonyo = undefined
+makeRanges :: [[Cap]] -> [Range]
+makeRanges = mkRanges 0
+  where
+    mkRanges _ []       = []
+    mkRanges i (xs:xss) = (i, pred j) : mkRanges j xss
+      where
+        j = i + length xs
 
+pickupRanges :: [Range] -> [Range]
+pickupRanges = undefined
