@@ -31,4 +31,6 @@ makeRanges = mkRanges 0
         j = i + length xs
 
 pickupRanges :: [Range] -> [Range]
-pickupRanges = undefined
+pickupRanges []       = []
+pickupRanges [_]      = []
+pickupRanges (_:r:rs) = r : pickupRanges rs
