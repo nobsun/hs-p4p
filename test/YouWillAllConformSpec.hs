@@ -23,7 +23,6 @@ rng2 = (11, 11)
 spec :: Spec
 spec = do
   { mkCmdSpec
-  ; makeRangesSpec
   ; pleaseConformSpec
   }
 
@@ -36,14 +35,6 @@ mkCmdSpec = describe "mkCmd" $ do
   ; context ("when provided with " ++ show rng2) $ do
     { it "can make a command from a singleton range" $ do
       { mkCmd rng2 `shouldBe` "11番目の人は帽子の向きを替えてください" }
-    }
-  }
-
-makeRangesSpec :: Spec
-makeRangesSpec = describe "makeRanges" $ do
-  { it "can convert from cap sequence to ranges" $ do
-    { makeRanges cap1 `shouldBe` [(2,4),(6,8),(11,11)]
-    ; makeRanges cap2 `shouldBe` [(2,4),(6,8)]
     }
   }
 
