@@ -18,10 +18,15 @@ pleaseConform = unfoldr psi . (,) 0
             k = j + n
 
 spanCount :: (a -> Bool) -> [a] -> (Int, [a])
-spanCount _ [] = (0, [])
-spanCount p xxs@(x:xs)
-  | p x       = case spanCount p xs of (n, xs') -> (succ n, xs')
-  | otherwise = (0, xxs)
+spanCount p = para phi (0,[])
+  where
+    phi x (xs, (m, ys))
+      | p x       = (succ m, ys)
+      | otherwise = (0, x:xs)
+
+para :: (a -> ([a],b) -> b) ->  b -> [a] -> b
+para phi z []     = z
+para phi z (x:xs) = phi x (xs, para phi z xs)
 
 type Pos = Int
 type Range = (Pos, Pos)
