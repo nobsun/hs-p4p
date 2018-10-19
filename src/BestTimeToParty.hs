@@ -7,7 +7,7 @@ type Time     = Int
 type Schedule = (Time, Time)
 
 bestTimeToParty :: [Schedule] -> String
-bestTimeToParty = mkMsg . bestTiming . mkTimingSheet
+bestTimeToParty = mkMsg . bestTiming . timingSheet
 
 mkMsg :: (Time, Int) -> String
 mkMsg (t, n) = "Best time to attend the party is at "
@@ -17,5 +17,11 @@ mkMsg (t, n) = "Best time to attend the party is at "
 bestTiming :: [(Time, Int)] -> (Time, Int)
 bestTiming = maximumBy (comparing snd)
 
-mkTimingSheet :: [Schedule] -> [(Time, Int)]
-mkTimingSheet = undefined
+timingSheet :: [Schedule] -> [(Time, Int)]
+timingSheet = mkTmSheet . concatMap arriveLeave
+
+mkTmSheet :: [(Time, Bool)] -> [(Time, Int)]
+mkTmSheet = undefined
+
+arriveLeave :: Schedule -> [(Time, Bool)]
+arriveLeave = undefined
