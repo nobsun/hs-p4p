@@ -24,7 +24,7 @@ makeTimingSheet :: [Schedule] -> [Timing]
 makeTimingSheet = timingSheet . groupBy ((==) `on` fst) . sort . concatMap arriveOrLeave
 
 arriveOrLeave :: Schedule -> [(Time, Bool)]
-arriveOrLeave = undefined
+arriveOrLeave (a, l) = [(a, True), (l, False)]
 
 timingSheet :: [[(Time, Bool)]] -> [Timing]
 timingSheet = undefined
