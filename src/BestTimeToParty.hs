@@ -5,23 +5,25 @@ import Data.Ord (comparing)
 
 type Time     = Int
 type Schedule = (Time, Time)
+type Timing   = (Time, Int)
+type Message  = String
 
-bestTimeToParty :: [Schedule] -> String
-bestTimeToParty = mkMsg . bestTiming . timingSheet
+bestTimeToParty :: [Schedule] -> Message
+bestTimeToParty = makeMessage . bestTiming . timingSheet
 
-mkMsg :: (Time, Int) -> String
-mkMsg (t, n) = "Best time to attend the party is at "
-            ++ show t ++ " o'clock : "
-            ++ show n ++ " celebrities will be attending!"
+makeMessage :: (Time, Int) -> Message
+makeMessage (t, n) = "Best time to attend the party is at "
+                  ++ show t ++ " o'clock : "
+                  ++ show n ++ " celebrities will be attending!"
 
 bestTiming :: [(Time, Int)] -> (Time, Int)
 bestTiming = maximumBy (comparing snd)
 
 timingSheet :: [Schedule] -> [(Time, Int)]
-timingSheet = mkTmSheet . concatMap arriveLeave
+timingSheet = makeTimingSheet . concatMap arriveOrLeave
 
-mkTmSheet :: [(Time, Bool)] -> [(Time, Int)]
-mkTmSheet = undefined
+makeTimingSheet :: [(Time, Bool)] -> [(Time, Int)]
+makeTimingSheet = undefined
 
-arriveLeave :: Schedule -> [(Time, Bool)]
-arriveLeave = undefined
+arriveOrLeave :: Schedule -> [(Time, Bool)]
+arriveOrLeave = undefined
