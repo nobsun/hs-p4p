@@ -22,12 +22,12 @@ timing = (9, 5)
 -- テストコード
 spec :: Spec
 spec = do
-  { mkMsgSpec
+  { makeMessageSpec
   ; bestTimeToPartySpec
   }
 
-mkMsgSpec :: Spec
-mkMsgSpec = describe "mkMsg" $ do
+makeMessageSpec :: Spec
+makeMessageSpec = describe "makeMessage" $ do
   { it "can make a message from a pair of timing and a number of celebrities" $ do
     { makeMessage timing `shouldBe` "Best time to attend the party is at 9 o'clock : 5 celebrities will be attending!"
     }
