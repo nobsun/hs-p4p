@@ -2,14 +2,16 @@ module BestTimeToParty where
 
 type Time     = Int
 type Schedule = (Time, Time)
+type Timing   = (Time, Int)
+type Message  = String
 
-bestTimeToParty :: [Schedule] -> String
-bestTimeToParty = mkMsg . gonyogonyo
+bestTimeToParty :: [Schedule] -> Message
+bestTimeToParty = makeMessage . gonyogonyo
 
-mkMsg :: (Time, Int) -> String
-mkMsg (t, n) = "Best time to attend the party is at "
-            ++ show t ++ " o'clock : "
-            ++ show n ++ " celebrities will be attending!"
+makeMessage :: Timing -> Message
+makeMessage (t, n) = "Best time to attend the party is at "
+                  ++ show t ++ " o'clock : "
+                  ++ show n ++ " celebrities will be attending!"
 
-gonyogonyo :: [Schedule] -> (Time, Int)
+gonyogonyo :: [Schedule] -> Timing
 gonyogonyo = undefined
