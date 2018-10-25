@@ -16,20 +16,20 @@ sched = [(6,8),(6,12),(6,7),(7,8)
         ,(9,10),(10,11),(10,12),(11,12)
         ]
 
-timing :: (Time, Int)
+timing :: Timing
 timing = (9, 5)
 
 -- テストコード
 spec :: Spec
 spec = do
-  { mkMsgSpec
+  { makeMessageSpec
   ; bestTimeToPartySpec
   }
 
-mkMsgSpec :: Spec
-mkMsgSpec = describe "mkMsg" $ do
+makeMessageSpec :: Spec
+makeMessageSpec = describe "makeMessage" $ do
   { it "can make a message from a pair of timing and a number of celebrities" $ do
-    { mkMsg timing `shouldBe` "Best time to attend the party is at 9 o'clock : 5 celebrities will be attending!"
+    { makeMessage timing `shouldBe` "Best time to attend the party is at 9 o'clock : 5 celebrities will be attending!"
     }
   }
 
