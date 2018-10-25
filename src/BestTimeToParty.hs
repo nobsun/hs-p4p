@@ -1,21 +1,30 @@
 module BestTimeToParty where
 
-import Data.List (maximumBy)
+import Data.Function (on)
+import Data.List (maximumBy, groupBy, sort)
 import Data.Ord (comparing)
 
 type Time     = Int
 type Schedule = (Time, Time)
+type Timing   = (Time, Int)
+type Message  = String
 
-bestTimeToParty :: [Schedule] -> String
-bestTimeToParty = mkMsg . bestTiming . mkTimingSheet
+bestTimeToParty :: [Schedule] -> Message
+bestTimeToParty = makeMessage . bestTiming . makeTimingSheet
 
-mkMsg :: (Time, Int) -> String
-mkMsg (t, n) = "Best time to attend the party is at "
+makeMessage :: (Time, Int) -> String
+makeMessage (t, n) = "Best time to attend the party is at "
             ++ show t ++ " o'clock : "
             ++ show n ++ " celebrities will be attending!"
 
-bestTiming :: [(Time, Int)] -> (Time, Int)
+bestTiming :: [Timing] -> Timing
 bestTiming = maximumBy (comparing snd)
 
-mkTimingSheet :: [Schedule] -> [(Time, Int)]
-mkTimingSheet = undefined
+makeTimingSheet :: [Schedule] -> [Timing]
+makeTimingSheet = timingSheet . groupBy ((==) `on` fst) . sort . concatMap arriveOrLeave
+
+arriveOrLeave :: Schedule -> [(Time, Bool)]
+arriveOrLeave = undefined
+
+timingSheet :: [[(Time, Bool)]] -> [Timing]
+timingSheet = undefined
