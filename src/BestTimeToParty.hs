@@ -1,5 +1,6 @@
 module BestTimeToParty where
 
+import Data.Bool
 import Data.Function (on)
 import Data.List (maximumBy, groupBy, sort, mapAccumL)
 import Data.Ord (comparing)
@@ -30,4 +31,8 @@ timingSheet :: [[(Time, Bool)]] -> [Timing]
 timingSheet = snd . mapAccumL gather 0
 
 gather :: Int -> [(Time, Bool)] -> (Int, Timing)
-gather = undefined
+gather c = foldr phi (c, (undefined, c))
+  where
+    phi (t,b)  (c', (_, _)) = (c'', (t,c''))
+      where
+        c''  = bool pred succ b c'
