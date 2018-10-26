@@ -1,7 +1,7 @@
 module BestTimeToParty where
 
 import Data.Function (on)
-import Data.List (maximumBy, groupBy, sort)
+import Data.List (maximumBy, groupBy, sort, mapAccumL)
 import Data.Ord (comparing)
 
 type Time     = Int
@@ -27,4 +27,7 @@ arriveOrLeave :: Schedule -> [(Time, Bool)]
 arriveOrLeave (a, l) = [(a, True), (l, False)]
 
 timingSheet :: [[(Time, Bool)]] -> [Timing]
-timingSheet = undefined
+timingSheet = snd . mapAccumL gather 0
+
+gather :: Int -> [(Time, Bool)] -> (Int, Timing)
+gather = undefined
