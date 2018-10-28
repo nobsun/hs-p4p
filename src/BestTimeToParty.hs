@@ -2,7 +2,7 @@ module BestTimeToParty where
 
 import Data.Bool
 import Data.Function (on)
-import Data.List (maximumBy, groupBy, sort, mapAccumL)
+import Data.List (maximumBy, sort, unfoldr)
 import Data.Ord (comparing)
 
 type Time     = Int
@@ -22,17 +22,24 @@ bestTiming :: [Timing] -> Timing
 bestTiming = maximumBy (comparing snd)
 
 makeTimingSheet :: [Schedule] -> [Timing]
-makeTimingSheet = timingSheet . groupBy ((==) `on` fst) . sort . concatMap arriveOrLeave
+makeTimingSheet = unfoldr psi . (,) 0 . sort . concatMap arriveOrLeave
+  where
+    psi (_,[]) = Nothing
+    psi (c,(t,al):xs) = case spanCountUpDown (t ==) c xs of
+      (c',ys) -> Just ((t,c''), (c'',ys))
+        where
+          c'' = bool pred succ al c'
+
+spanCountUpDown :: Enum b => (a -> Bool) -> b -> [(a, Bool)] -> (b, [(a, Bool)]) 
+spanCountUpDown p c = para phi (c,[])
+  where
+    phi x@(t,al) (xs, y)
+      | p t       = case y of (c',ys) -> (bool pred succ al c', ys)
+      | otherwise = (c,x:xs)
+
+para :: (a -> ([a], b) -> b) -> b -> [a] -> b
+para phi z [] = z
+para phi z (x:xs) = phi x (xs, para phi z xs)
 
 arriveOrLeave :: Schedule -> [(Time, Bool)]
 arriveOrLeave (a, l) = [(a, True), (l, False)]
-
-timingSheet :: [[(Time, Bool)]] -> [Timing]
-timingSheet = snd . mapAccumL gather 0
-
-gather :: Int -> [(Time, Bool)] -> (Int, Timing)
-gather c = foldr phi (c, (undefined, c))
-  where
-    phi (t,b)  (c', (_, _)) = (c'', (t,c''))
-      where
-        c''  = bool pred succ b c'
