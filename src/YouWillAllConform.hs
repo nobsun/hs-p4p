@@ -1,5 +1,6 @@
 module YouWillAllConform where
 
+import Control.Arrow (first)
 import Data.List (unfoldr)
 
 type Cap = Char
@@ -20,8 +21,8 @@ pleaseConform = unfoldr psi . (,) 0
 spanCount :: (a -> Bool) -> [a] -> (Int, [a])
 spanCount p = para phi (0,[])
   where
-    phi x (xs, (m, ys))
-      | p x       = (succ m, ys)
+    phi x (xs, mys)
+      | p x       = first succ mys
       | otherwise = (0, x:xs)
 
 para :: (a -> ([a],b) -> b) ->  b -> [a] -> b
