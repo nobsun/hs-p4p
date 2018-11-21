@@ -1,5 +1,5 @@
 name:                hs-p4p
-version:             0.2.1.1
+version:             0.3.1.0
 github:              "nobsun/hs-p4p"
 license:             BSD3
 author:              "Nobuo Yamashita"
@@ -25,38 +25,27 @@ dependencies:
 - markdown-unlit >= 0.5.0
 - doctest >= 0.15.0
 - hspec >= 2.5.5
+- containers
 
 library:
   source-dirs: src
 
 executables:
-  hs-p4p-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - hs-p4p
-    
   pleaseConform:
     main:		pleaseConform.hs
     source-dirs:	app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
     - hs-p4p
     
   bestTimeToParty:
     main:		bestTimeToParty.hs
     source-dirs:	app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+    dependencies:
+    - hs-p4p
+
+  readYourMinds:
+    main:		readYourMinds.hs
+    source-dirs:	app
     dependencies:
     - hs-p4p
     
@@ -64,9 +53,5 @@ tests:
   hs-p4p-test:
     main:                Spec.hs
     source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
     dependencies:
     - hs-p4p
