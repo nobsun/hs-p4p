@@ -1,5 +1,5 @@
 name:                hs-p4p
-version:             0.3.1.0
+version:             0.4.0.0
 github:              "nobsun/hs-p4p"
 license:             BSD3
 author:              "Nobuo Yamashita"
@@ -45,6 +45,12 @@ executables:
 
   readYourMinds:
     main:		readYourMinds.hs
+    source-dirs:	app
+    dependencies:
+    - hs-p4p
+
+  queens:
+    main:		queens.hs
     source-dirs:	app
     dependencies:
     - hs-p4p
