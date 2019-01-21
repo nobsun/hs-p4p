@@ -1,5 +1,5 @@
 name:                hs-p4p
-version:             0.4.0.0
+version:             0.5.0.0
 github:              "nobsun/hs-p4p"
 license:             BSD3
 author:              "Nobuo Yamashita"
@@ -25,7 +25,9 @@ dependencies:
 - markdown-unlit >= 0.5.0
 - doctest >= 0.15.0
 - hspec >= 2.5.5
-- containers
+- containers >= 0.6
+- mtl >= 2.2
+- random >= 1.1
 
 library:
   source-dirs: src
@@ -52,6 +54,11 @@ executables:
   queens:
     main:		queens.hs
     source-dirs:	app
+    dependencies:
+    - hs-p4p
+
+  breakCrystal:
+    main:		breakCrystal.hs
     dependencies:
     - hs-p4p
     
