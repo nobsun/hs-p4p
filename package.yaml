@@ -59,6 +59,7 @@ executables:
 
   breakCrystal:
     main:		breakCrystal.hs
+    source-dirs:	app
     dependencies:
     - hs-p4p
     
